@@ -55,11 +55,9 @@
     height: 100%;
     backdrop-filter: blur(10px);
     background: rgba(0, 0, 0, 0.5);
-    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    animation: fadeIn 0.3s ease-in-out;
 ">
     <div style="
         background: rgba(44, 44, 44, 0.9);
@@ -97,7 +95,7 @@
 
 <script>
     function showPopup() {
-        if (!sessionStorage.getItem("popupClosed") && window.innerWidth < 768) {
+        if (window.innerWidth < 768 && !sessionStorage.getItem("popupClosed")) {
             document.getElementById("popup").style.display = "flex";
         }
     }
@@ -107,15 +105,22 @@
         sessionStorage.setItem("popupClosed", "true");
     }
 
-    setTimeout(showPopup, 1500); // Delay of 1.5 seconds
+    // Ensure it only runs if the device is mobile
+    window.addEventListener("load", () => {
+        if (window.innerWidth < 768) {
+            setTimeout(showPopup, 1500); // Delay of 1.5 seconds
+        }
+    });
+
+    // Prevent popup from appearing if resized to desktop
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) {
+            document.getElementById("popup").style.display = "none";
+        }
+    });
 </script>
 
 <style>
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
     @keyframes slideIn {
         from { opacity: 0; transform: translateY(-20px); }
         to { opacity: 1; transform: translateY(0); }
@@ -126,6 +131,7 @@
         transform: scale(1.1);
     }
 </style>
+
 
     <!-- Loader Start -->
     <div id="loader" class="loader">
