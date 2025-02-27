@@ -118,6 +118,13 @@
             document.getElementById("popup").style.display = "none";
         }
     });
+
+    document.querySelectorAll('.menu__link').forEach(link => {
+  link.addEventListener('click', function(event) {
+    console.log('Clicked:', this.href);
+  });
+});
+
 </script>
 
 <style>
@@ -179,12 +186,17 @@
                 <i class="ph-bold ph-envelope"></i>
               </a>
             </li>
+            <li class="menu__item">
+              <a class="menu__link btn" href="https://blog.sandeshshrestha.xyz/">
+                <span class="menu__caption">Blog</span>
+                <i class="ph-bold ph-envelope"></i>
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
       <!-- Navigation Menu End -->
-
-
+      
       <!-- Header Controls Start -->
       <div class="header__controls d-flex justify-content-end">
         <button id="color-switcher" class="color-switcher header__switcher btn" type="button" role="switch" aria-label="light/dark mode" aria-checked="true"></button>
